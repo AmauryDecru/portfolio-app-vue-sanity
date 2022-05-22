@@ -114,3 +114,14 @@ async function getUser(org1UserId)
 
     await registerAndEnrollUser(caClient, wallet, 'Org1MSP', org1UserId, 'org1.department');
 }
+
+let args = process.argv;
+
+if (args[2] === 'admin') {
+    getAdmin();
+} else if (args[2] === 'user') {
+    let org1UserId = args[3];
+    getUser("org1UserId");
+} else {
+    console.log("Invalid command");
+}
