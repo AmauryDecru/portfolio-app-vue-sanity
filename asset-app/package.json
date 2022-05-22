@@ -1,0 +1,23 @@
+{
+  "name": "asset-app",
+  "version": "16.15.0",
+  "description": "Reworked Chaincode Functionality",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/howest-gp-ipr/st-2122-2-s4-ee-innovative-project-AmauryDecru.git"
+  },
+  "author": "AmauryDecru",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/howest-gp-ipr/st-2122-2-s4-ee-innovative-project-AmauryDecru/issues"
+  },
+  "homepage": "https://github.com/howest-gp-ipr/st-2122-2-s4-ee-innovative-project-AmauryDecru#readme",
+  "dependencies": {
+    "fabric-ca-client": "^2.2.12",
+    "fabric-network": "^2.2.12"
+  }
+}
