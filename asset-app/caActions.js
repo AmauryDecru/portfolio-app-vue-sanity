@@ -21,3 +21,34 @@ function buildCAClient(FabricCACServices, ccp, caHostName)
     return caClient;
 }
 
+async function enrollAdmin(caClient, wallet, orgMspId)
+{
+    try
+    {
+        const identity = await wallet.get(adminUserId);
+        if(identity)
+        {
+            console.log('An identity for admin already exists');
+            return;
+        }
+        const enrollment = await caClient.enroll({
+            enrollmentID: adminUserId,
+            enrollmentSecret: adminUserPasswd
+        });
+
+        const x509Identity = {
+            credentials: {
+                certificate: enrollment.certificate,
+                privateKey: enrollment.key.toBytes()
+            },
+            mspId: orgMspId,
+            type: 'X.509'
+        };
+
+        await wallet.put(adminUserId, x509Identity);
+    }
+    catch(error)
+    {
+        console.log('Failed to enroll admin: ${error}');
+    }
+}
