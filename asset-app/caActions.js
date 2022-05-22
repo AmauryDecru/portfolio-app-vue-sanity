@@ -93,3 +93,24 @@ async function registerAndEnrollUser(caClient, wallet, orgMspId, userId, affilia
         console.error(`Failed to register user : ${error}`);
     }
 }
+
+async function getAdmin() {
+    let ccp = helper.buildCCPOrg1();
+
+    const caClient = buildCAClient(FabricCAServices, ccp, 'ca.org1.example.com');
+
+    const wallet = await helper.buildWallet(Wallets, walletPath);
+
+    await enrollAdmin(caClient, wallet, 'Org1Msp');
+}
+
+async function getUser(org1UserId)
+{
+    let ccp = helper.buildCCPOrg1()
+
+    const caClient = buildCAClient(FabricCAServices, ccp, 'ca.org1.example.com');
+
+    const wallet = await helper.buildWallet(Wallets, walletPath);
+
+    await registerAndEnrollUser(caClient, wallet, 'Org1MSP', org1UserId, 'org1.department');
+}
