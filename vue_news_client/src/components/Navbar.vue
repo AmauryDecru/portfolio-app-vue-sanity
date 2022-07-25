@@ -85,4 +85,18 @@ export default {
 .hamburger span:after{
   top: 8px;
 }
+
+.menu-toggle.is-active .hamburger > span{
+  transform: rotate(45deg);
+}
+
+.menu-toggle.is-active .hamburger > span:before{
+  top: 0;
+  transform: rotate(0deg);
+}
+
+.menu-toggle.is-active .hamburger > span:after{
+  top: 0;
+  transform: rotate(90deg);
+}
 </style>
