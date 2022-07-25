@@ -3,9 +3,9 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     menu_is_active: false,
-    anouncements: [],
+    announcements: [],
     authors: [],
-    total_anouncements: 0
+    total_announcements: 0
   },
   getters: {
   },
