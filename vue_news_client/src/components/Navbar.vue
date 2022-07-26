@@ -10,10 +10,15 @@
       <span></span>
     </div>
   </div>
-
-  <h1 class="text center text-2x1 uppercase font-light tracking-widest">
-    BSF Mission Announcements
-  </h1>
+  <img src="../assets/shield2-min.png" alt="BSF Coat of Arms" class="object-scale-down h-20 w-38">
+  <div class="pl-3">
+    <h1 class="text center text-lg uppercase font-light tracking-widest">
+      Belgian Special Forces
+    </h1>
+    <h2 class="text center text-1xl uppercase font-light tracking-widest">
+      Milsim Community
+    </h2>
+  </div>
 </header>
 </template>
 
@@ -41,8 +46,8 @@ export default {
 <style scoped>
 :deep(.menu-toggle){
   position:absolute;
-  top: 1rem;
-  left: 1rem;
+  top: 2rem;
+  left: 2rem;
   width: 32px;
   height: 32px;
   cursor: pointer;
