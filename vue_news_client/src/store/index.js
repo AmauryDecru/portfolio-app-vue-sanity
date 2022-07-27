@@ -1,7 +1,5 @@
 import { createStore } from 'vuex'
 import sanity from '../client.js'
-import announcement from "../../studio/schemas/announcement";
-import {stat} from "@babel/core/lib/gensync-utils/fs";
 
 export default createStore({
   state: {
