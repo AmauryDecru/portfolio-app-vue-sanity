@@ -16,7 +16,7 @@ export default {
             title: 'Author',
             name: 'author',
             type: 'reference',
-            to: [{type: 'user  '}],
+            to: [{type: 'member'}],
             validation: Rule => Rule.required().error('Author is required')
         },
         {
