@@ -25,7 +25,6 @@ export default {
             type: 'text',
             validation: Rule => [
                 Rule.max(180).error('Announcement Summary must be less than 180 characters'),
-                Rule.required().error('Summary is required')
             ]
         },
         {

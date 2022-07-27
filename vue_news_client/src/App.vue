@@ -18,4 +18,11 @@ export default {
 </script>
 
 <style>
+.btn{
+  @apply bg-yellow-500 duration-300 font-bol py-2 px-4 rounded-lg inline-block;
+}
+
+.btn:hover{
+  @apply bg-yellow-600;
+}
 </style>
