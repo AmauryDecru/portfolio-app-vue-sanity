@@ -5,9 +5,9 @@
       <p v-if="announcement.summary" class="text-gray-500 md:text-lg mb-4 flex-1">{{ announcement.summary }}</p>
       <div class="flex sm:flex-col md:flex-row justify-between items-start md:items-end">
         <div class="flex items-center sm:mb-4 md:mb-0">
-          <img v-if="post.author.profile_picture" src="" alt=""/>
+          <img v-if="announcement.author.profile_picture" src="" alt=""/>
           <p class="text-white mr-4">{{ announcement.author.username }}</p>
-          <p class="text-gray-500 text-sm">{{ announcement._created_at }}</p>
+          <p class="text-gray-500 text-sm">{{ announcement._createdAt }}</p>
         </div>
       </div>
       <router-link :to="`/announcement/${ announcement._id }`" class="btn">Read more</router-link>

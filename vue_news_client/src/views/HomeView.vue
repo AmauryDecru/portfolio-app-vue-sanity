@@ -59,7 +59,7 @@ export default {
       subscription.value.unsubscribe()
     })
 
-    return announcements
+    return { announcements }
   }
 }
 </script>

@@ -19,7 +19,7 @@ export default {
 
 <style>
 .btn{
-  @apply bg-yellow-500 duration-300 font-bol py-2 px-4 rounded-lg inline-block;
+  @apply bg-yellow-500 duration-300 font-bold py-2 px-4 rounded-lg inline-block;
 }
 
 .btn:hover{
