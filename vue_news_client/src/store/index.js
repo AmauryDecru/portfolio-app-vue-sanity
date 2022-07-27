@@ -1,4 +1,7 @@
 import { createStore } from 'vuex'
+import sanity from '../client.js'
+import announcement from "../../studio/schemas/announcement";
+import {stat} from "@babel/core/lib/gensync-utils/fs";
 
 export default createStore({
   state: {
@@ -8,9 +11,10 @@ export default createStore({
     total_announcements: 0
   },
   getters: {
+    announcements: state => state.announcements.sort((a, b) => new Date(b._createdAt).getTime() - new Date(a._createdAt).getTime()),
   },
   mutations: {
-    TOGGLE_DROPDOWN (state, dir = null){
+    TOGGLE_DROPDOWN(state, dir = null){
       if (dir === 'open'){
         state.menu_is_active = true
       }
@@ -20,11 +24,23 @@ export default createStore({
       else {
         state.menu_is_active = !state.menu_is_active
       }
+    },
+    SET_ANNOUNCEMENTS(state, announcements){
+      state.announcements = announcements
     }
   },
   actions: {
-    ToggleDropDown ({commit}){
+    ToggleDropDown({commit}){
       commit('TOGGLE_DROPDOWN')
+    },
+
+    GetAnnouncements({ commit }, limit = null){
+      const queryString = `*[_type == "announcement"] {..., author-> } |
+                            order(_createdAt desc) ${limit ? `[0...${limit}]` : ''}`
+
+      sanity.fetch(queryString).then(announcements => {
+        commit('SET_ANNOUNCEMENTS', announcements)
+      })
     }
   },
   modules: {
