@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@sanity/client": "^3.3.2",
+    "@sanity/image-url": "^1.0.1",
     "core-js": "^3.8.3",
     "swiper": "^8.3.2",
     "vue": "^3.2.13",

@@ -3,7 +3,7 @@
   <main class="feed">
     <section class="container mx-auto p-8 items-center text-center">
       <h1 class="title_intro text-5xl mb-8 font-Electrolize">Welcome to BSF!</h1>
-      <p class="text-white md:text-lg mb-14 flex-1 pl-48 pr-48">
+      <p class="text-white md:text-lg mb-14 flex-1 md:pl-48 md:pr-48">
         BSF was created in the beginning of January 2020.<br>
         A couple of friends decided that they should start their own unit with the focus on the players, where everyone is treated equally.<br>
         The main idea is to create a very friendly environment with people who share the same love for ArmA 3.<br>
@@ -17,7 +17,7 @@
       </p>
     </section>
     <section class="mx-auto w-full p-24 bg-gray-800 items-center text-center">
-      <div class="container mx-auto p-8 bg-gray-800 items-center text-center">
+      <div class="container mx-auto md:p-8 bg-gray-800 items-center text-center">
         <swiper :navigation="true" :modules="modules" class="carousel">
           <swiper-slide>
             <img src="../assets/Arma_3.png" alt="Potential recruitment poster">
