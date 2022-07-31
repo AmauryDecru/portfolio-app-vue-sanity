@@ -31,14 +31,18 @@ export default createStore({
     ToggleDropDown({commit}){
       commit('TOGGLE_DROPDOWN')
     },
-
-    GetAnnouncements({ commit }, limit = null){
+    //GET announcements from Sanity API
+    GetAnnouncements({commit}, limit = null){
       const queryString = `*[_type == "announcement"] {..., author-> } |
                             order(_createdAt desc) ${limit ? `[0...${limit}]` : ''}`
 
       sanity.fetch(queryString).then(announcements => {
         commit('SET_ANNOUNCEMENTS', announcements)
       })
+    },
+    //Listen for updates of announcements to instantly update FeedItem
+    UpdateAnnouncement({commit}, announcement){
+      commit('SET_ANNOUNCEMENTS', this.state.announcements.map(a => a._id === announcement._id ? announcement : a))
     }
   },
   modules: {

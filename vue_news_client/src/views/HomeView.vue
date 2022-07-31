@@ -84,10 +84,16 @@ export default {
             switch(update.transition)
             {
               case 'update':
+                sanity.getDocument(update.result.author._ref).then(author => {
+                  store.dispatch('UpdateAnnouncement', {
+                    ...update.result, author
+                  })
+                })
                 console.log("Announcement updated", update)
                 break;
 
               case 'appear':
+
                 console.log("Announcement Appeared", update)
                 break;
 
