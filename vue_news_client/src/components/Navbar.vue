@@ -1,5 +1,5 @@
 <template>
-<header class="flex w-full items-center justify-center p-4">
+<header class="flex w-full items-center justify-center p-4 bg-gray-800 shadow-2xl">
   <div :class="`menu-toggle relative z-50 ${
     menu_is_active
     ? 'is-active'

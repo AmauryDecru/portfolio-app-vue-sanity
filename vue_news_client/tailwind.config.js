@@ -4,7 +4,11 @@ module.exports = {
       "./src/**/*.{vue,html,js,jsx,tsx}"
   ],
   theme: {
-    extend: {},
+      extend: {
+          fontFamily: {
+              'Electrolize': ['Electrolize', 'sans-serif']
+          },
+      },
+      plugins: [],
   },
-  plugins: [],
 }

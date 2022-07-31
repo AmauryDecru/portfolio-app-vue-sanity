@@ -1,6 +1,6 @@
 <template>
   <div class="bg-gray-700 min-h-screen text-white">
-    <Navbar/>
+    <Navbar class="sticky top-0 z-50"/>
     <DropdownMenu/>
     <router-view/>
   </div>
