@@ -43,6 +43,10 @@ export default createStore({
     //Listen for updates of announcements to instantly update FeedItem
     UpdateAnnouncement({commit}, announcement){
       commit('SET_ANNOUNCEMENTS', this.state.announcements.map(a => a._id === announcement._id ? announcement : a))
+    },
+    //Listen for creation of new announcements to instantly update HomeView with new FeedItem
+    CreateAnnouncement({commit}, announcement){
+      commit('SET_ANNOUNCEMENTS', [...this.state.announcements, announcement])
     }
   },
   modules: {

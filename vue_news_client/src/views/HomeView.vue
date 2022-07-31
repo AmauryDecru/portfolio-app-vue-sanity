@@ -93,7 +93,11 @@ export default {
                 break;
 
               case 'appear':
-
+                sanity.getDocument(update.result.author._ref).then(author => {
+                store.dispatch('CreateAnnouncement', {
+                  ...update.result, author
+                })
+              })
                 console.log("Announcement Appeared", update)
                 break;
 
