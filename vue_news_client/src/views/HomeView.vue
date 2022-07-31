@@ -102,6 +102,7 @@ export default {
                 break;
 
               case 'disappear':
+                store.dispatch('DeleteAnnouncement', update.documentId)
                 console.log("Announcement Disappeared", update)
                 break;
             }

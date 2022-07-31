@@ -31,7 +31,7 @@ export default createStore({
     ToggleDropDown({commit}){
       commit('TOGGLE_DROPDOWN')
     },
-    //GET announcements from Sanity API
+    // GET announcements from Sanity API
     GetAnnouncements({commit}, limit = null){
       const queryString = `*[_type == "announcement"] {..., author-> } |
                             order(_createdAt desc) ${limit ? `[0...${limit}]` : ''}`
@@ -40,13 +40,17 @@ export default createStore({
         commit('SET_ANNOUNCEMENTS', announcements)
       })
     },
-    //Listen for updates of announcements to instantly update FeedItem
+    // Listen for updates of announcements to instantly update FeedItem
     UpdateAnnouncement({commit}, announcement){
       commit('SET_ANNOUNCEMENTS', this.state.announcements.map(a => a._id === announcement._id ? announcement : a))
     },
-    //Listen for creation of new announcements to instantly update HomeView with new FeedItem
+    // Listen for creation of new announcements to instantly update HomeView with new FeedItem
     CreateAnnouncement({commit}, announcement){
       commit('SET_ANNOUNCEMENTS', [...this.state.announcements, announcement])
+    },
+    // Listen for deletion of announcements to instantly remove the corresponding FeedItem from HomeView
+    DeleteAnnouncement({commit}, announcementId){
+      commit('SET_ANNOUNCEMENTS', this.state.announcements.filter(a => a._id !== announcementId))
     }
   },
   modules: {

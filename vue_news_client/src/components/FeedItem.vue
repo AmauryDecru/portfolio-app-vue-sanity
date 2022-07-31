@@ -6,7 +6,7 @@
       <p v-if="announcement.summary" class="text-gray-500 md:text-lg mb-4 flex-1">{{ announcement.summary }}</p>
       <div class="flex sm:flex-col md:flex-row justify-between items-start md:items-end">
         <div class="flex items-center sm:mb-4 md:mb-0">
-          <img v-if="announcement.author.profile_picture" src="" alt=""/>
+          <img v-if="announcement.author.profile_picture" :src="CreateURL(announcement.author.profile_picture, 100, 100)" class="rounded-full mr-4 w-12 h-12"/>
           <div>
             <p class="text-white mr-4">{{ announcement.author.username }}</p>
             <p class="text-gray-500 text-sm">{{ FormatDate(announcement._createdAt) }}</p>
