@@ -42,6 +42,9 @@
       <div class="grid gap-4">
         <FeedItem v-for="(announcement, i) in announcements" :key="i" :announcement="announcement" />
       </div>
+      <button v-if="$store.state.numberOfAnnouncements > announcements.length" @click="$store.dispatch('LoadMore', 1)" class="btn mt-8" >
+        Load More ({{$store.state.numberOfAnnouncements - announcements.length}})
+      </button>
     </section>
   </main>
 </template>
@@ -76,7 +79,7 @@ export default {
     const announcements = computed(() => store.getters.announcements)
 
     onMounted(() => {
-      store.dispatch("GetAnnouncements", 3)
+      store.dispatch("GetAnnouncements", 2)
 
       const queryString = '*[_type == "announcement"]'
 
