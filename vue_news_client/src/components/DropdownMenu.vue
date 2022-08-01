@@ -12,11 +12,11 @@
         <MenuItem to="/mission_announcements">
           <span class="material-icons mr-2">calendar_month</span> Mission Announcements
         </MenuItem>
-        <MenuItem to="/mission_announcements">
+        <MenuItem to="/news">
           <span class="material-icons mr-2">newspaper</span> BSF News
         </MenuItem>
-        <MenuItem to="/mission_announcements">
-          <span class="material-icons mr-2">photo_library</span> Pictures
+        <MenuItem to="/members">
+          <span class="material-icons mr-2">group</span> Members
         </MenuItem>
         <MenuItem to="/mission_announcements">
           <span class="material-icons mr-2">group_add</span> Join BSF

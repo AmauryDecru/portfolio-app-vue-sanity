@@ -10,8 +10,10 @@ export default createStore({
   },
   getters: {
     announcements: state => state.announcements.sort((a, b) => new Date(b._createdAt).getTime() - new Date(a._createdAt).getTime()),
+    members: state => state.members
   },
   mutations: {
+    // MENU MUTATIONS
     TOGGLE_DROPDOWN(state, dir = null){
       if (dir === 'open'){
         state.menu_is_active = true
@@ -24,6 +26,7 @@ export default createStore({
       }
     },
 
+    // ANNOUNCEMENT MUTATIONS
     SET_ANNOUNCEMENTS(state, announcements){
       state.announcements = announcements
     },
@@ -34,12 +37,24 @@ export default createStore({
 
     ADD_TO_NUMBEROFANNOUNCEMENTS(state, int = 1){
       state.numberOfAnnouncements += int
+    },
+
+    // MEMBER MUTATIONS
+    SET_MEMBERS(state, members){
+      state.members = members
     }
   },
   actions: {
+    // MENU FUNCTIONS
     ToggleDropDown({commit}){
       commit('TOGGLE_DROPDOWN')
     },
+
+    CloseMenu({commit}){
+      commit('TOGGLE_MENU', 'close')
+    },
+
+    // ANNOUNCEMENT CRUD
     // GET announcements from Sanity API
     GetAnnouncements({commit}, limit = null){
       const queryString = `*[_type == "announcement"] {..., author-> } |
@@ -75,6 +90,16 @@ export default createStore({
 
       sanity.fetch(queryString).then(announcements => {
         commit('SET_ANNOUNCEMENTS', [...this.state.announcements, ...announcements])
+      })
+    },
+
+    // MEMBERS CRUD
+    // GET Members from Sanity API
+    GetMembers({commit}){
+      const queryString = `*[_type == "member"] | order(_createdAt)`
+
+      sanity.fetch(queryString).then(members => {
+        commit('SET_MEMBERS', members)
       })
     }
   },
