@@ -10,3 +10,7 @@ export const CreateURL = (source, width = 300, height = 300) => {
 export const FormatDate = (date) => {
     return new Date(date).toLocaleDateString()
 }
+
+export const TextReformatter = (text) => {
+    return text.replace(/\n/g, "<br>")
+}
