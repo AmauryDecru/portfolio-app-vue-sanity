@@ -18,9 +18,6 @@
         <MenuItem to="/members">
           <span class="material-icons mr-2">group</span> Members
         </MenuItem>
-        <MenuItem to="">
-          <span class="material-icons mr-2">group_add</span> Join BSF
-        </MenuItem>
       </div>
     </div>
   </aside>

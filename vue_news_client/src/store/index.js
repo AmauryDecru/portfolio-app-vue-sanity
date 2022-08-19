@@ -15,6 +15,7 @@ export default createStore({
   getters: {
     announcements: state => state.announcements.sort((a, b) => new Date(b._createdAt).getTime() - new Date(a._createdAt).getTime()),
     operations: state => state.operations.sort((a, b) => new Date(b._createdAt).getTime() - new Date(a._createdAt).getTime()),
+    newsItems: state => state.newsItems.sort((a, b) => new Date(b._createdAt).getTime() - new Date(a._createdAt).getTime()),
     members: state => state.members
   },
   mutations: {
@@ -55,6 +56,19 @@ export default createStore({
 
     ADD_TO_NUMBEROFOPERATIONS(state, int = 1){
       state.numberOfOperations += int
+    },
+
+    // NEWSITEMS MUTATIONS
+    SET_NEWSITEMS(state, newsItems){
+      state.newsItems = newsItems
+    },
+
+    SET_NUMBEROFNEWSITEMS(state, numberOfNewsItems){
+      state.numberOfNewsItems = numberOfNewsItems
+    },
+
+    ADD_TO_NUMBEROFNEWSITEMS(state, int = 1){
+      state.numberOfNewsItems += int
     },
 
     // MEMBER MUTATIONS
@@ -131,12 +145,12 @@ export default createStore({
     },
 
     CreateOperation({commit}, operation){
-      commit('SET_OPERATIONS', [...this.state.announcements, operation])
+      commit('SET_OPERATIONS', [...this.state.operations(), operation])
       commit('ADD_TO_NUMBEROFOPERATIONS')
     },
 
     DeleteOperation({commit}, operationId){
-      commit('SET_OPERATIONS', this.state.announcements.filter(o => o._id !== operationId))
+      commit('SET_OPERATIONS', this.state.operations().filter(o => o._id !== operationId))
       commit('ADD_TO_NUMBEROFOPERATIONS')
     },
 
@@ -146,6 +160,44 @@ export default createStore({
 
       sanity.fetch(queryString).then(operations => {
         commit('SET_OPERATIONS', [...this.state.operations, ...operations])
+      })
+    },
+
+    // NEWSITEMS CRUD
+    GetNewsItems({commit}, limit = null){
+      const queryString = `*[_type == "announcement" && is_operation == false] {..., author-> } | 
+                            order(_createdAt desc) ${limit ? `[0...${limit}]` : ''}`
+      const count = 'count(*[_type == "announcement" && is_operation == false])'
+
+      sanity.fetch(queryString).then(newsItems => {
+        commit('SET_NEWSITEMS', newsItems)
+      })
+
+      sanity.fetch(count).then(count => {
+        commit('SET_NUMBEROFNEWSITEMS', count)
+      })
+    },
+
+    UpdateNewsItem({commit}, newsItem){
+      commit('SET_NEWSITEMS', this.state.newsItems.map(o => o._id === newsItem._id ? newsItem : o))
+    },
+
+    CreateNewsItem({commit}, newsItem){
+      commit('SET_NEWSITEMS', [...this.state.newsItems, newsItem])
+      commit('ADD_TO_NUMBEROFNEWSITEMS')
+    },
+
+    DeleteNewsItem({commit}, newsItemId){
+      commit('SET_NEWSITEMS', this.state.newsItems.filter(o => o._id !== newsItemId))
+      commit('ADD_TO_NUMBEROFNEWSITEMS')
+    },
+
+    LoadMoreNewsItems({commit}, limit = 5) {
+      const queryString = `*[_type == "announcement" && is_operation == false] {..., author-> } | order(_createdAt desc) 
+      [${this.state.newsItems.length}...${this.state.newsItems.length + limit}]`
+
+      sanity.fetch(queryString).then(newsItems => {
+        commit('SET_NEWSITEMS', [...this.state.newsItems, ...newsItems])
       })
     },
 

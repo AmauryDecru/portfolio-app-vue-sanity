@@ -1,11 +1,11 @@
 <template>
   <section class="container mx-auto p-4">
-    <h1 class="text-2xl mb-8">Upcoming operations</h1>
+    <h1 class="text-2xl mb-8">BSF News</h1>
     <div class="grid gap-4">
-      <FeedItem v-for="(operation, i) in operations" :key="i" :announcement="operation" />
+      <FeedItem v-for="(newsItem, i) in newsItems" :key="i" :announcement="newsItem" />
     </div>
-    <button v-if="$store.state.numberOfOperations > operations.length" @click="$store.dispatch('LoadMoreOperations', 1)" class="btn mt-8" >
-      Load More ({{$store.state.numberOfOperations - operations.length}})
+    <button v-if="$store.state.numberOfNewsItems > newsItems.length" @click="$store.dispatch('LoadMoreNewsItems', 1)" class="btn mt-8" >
+      Load More ({{$store.state.numberOfNewsItems - newsItems.length}})
     </button>
   </section>
 </template>
@@ -30,37 +30,37 @@ export default {
     const subscription = ref(null)
     const store = useStore()
 
-    const operations = computed(() => store.getters.operations)
+    const newsItems = computed(() => store.getters.newsItems)
 
     onMounted(() => {
-      store.dispatch("GetOperations", 2)
+      store.dispatch("GetNewsItems", 2)
 
-      const queryString = '*[_type == "announcement" && is_operation == "true"]'
+      const queryString = '*[_type == "announcement" && is_operation == false]'
 
       subscription.value = sanity.listen(queryString).subscribe(update => {
         switch(update.transition)
         {
           case 'update':
             sanity.getDocument(update.result.author._ref).then(author => {
-              store.dispatch('UpdateOperation', {
+              store.dispatch('UpdateNewsItem', {
                 ...update.result, author
               })
             })
-            console.log("Operation updated", update)
+            console.log("News item updated", update)
             break;
 
           case 'appear':
             sanity.getDocument(update.result.author._ref).then(author => {
-              store.dispatch('CreateOperation', {
+              store.dispatch('CreateNewsItem', {
                 ...update.result, author
               })
             })
-            console.log("Operation Appeared", update)
+            console.log("News Item Appeared", update)
             break;
 
           case 'disappear':
-            store.dispatch('DeleteOperation', update.documentId)
-            console.log("Operation Disappeared", update)
+            store.dispatch('DeleteNewsItem', update.documentId)
+            console.log("News Item Disappeared", update)
             break;
         }
       })
@@ -71,7 +71,7 @@ export default {
     })
 
     return {
-      operations
+      newsItems
     }
   },
 }
