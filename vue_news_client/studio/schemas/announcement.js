@@ -13,6 +13,11 @@ export default {
             ]
         },
         {
+            title: 'Is Operation',
+            name: 'is_operation',
+            type: 'boolean'
+        },
+        {
             title: 'Author',
             name: 'author',
             type: 'reference',
@@ -24,7 +29,7 @@ export default {
             name: 'summary',
             type: 'text',
             validation: Rule => [
-                Rule.max(180).error('Announcement Summary must be less than 180 characters'),
+                Rule.max(360).error('Announcement Summary must be less than 360 characters'),
             ]
         },
         {

@@ -5,11 +5,16 @@ export default createStore({
   state: {
     menu_is_active: false,
     announcements: [],
+    operations: [],
+    newsItems: [],
     authors: [],
-    numberOfAnnouncements: 0
+    numberOfAnnouncements: 0,
+    numberOfOperations: 0,
+    numberOfNewsItems: 0
   },
   getters: {
     announcements: state => state.announcements.sort((a, b) => new Date(b._createdAt).getTime() - new Date(a._createdAt).getTime()),
+    operations: state => state.operations.sort((a, b) => new Date(b._createdAt).getTime() - new Date(a._createdAt).getTime()),
     members: state => state.members
   },
   mutations: {
@@ -39,6 +44,19 @@ export default createStore({
       state.numberOfAnnouncements += int
     },
 
+    // OPERATION MUTATIONS
+    SET_OPERATIONS(state, operations){
+      state.operations = operations
+    },
+
+    SET_NUMBEROFOPERATIONS(state, numberOfOperations){
+      state.numberOfOperations = numberOfOperations
+    },
+
+    ADD_TO_NUMBEROFOPERATIONS(state, int = 1){
+      state.numberOfOperations += int
+    },
+
     // MEMBER MUTATIONS
     SET_MEMBERS(state, members){
       state.members = members
@@ -51,10 +69,10 @@ export default createStore({
     },
 
     CloseMenu({commit}){
-      commit('TOGGLE_MENU', 'close')
+      commit('TOGGLE_DROPDOWN', 'close')
     },
 
-    // ANNOUNCEMENT CRUD
+    // ANNOUNCEMENTS CRUD
     // GET announcements from Sanity API
     GetAnnouncements({commit}, limit = null){
       const queryString = `*[_type == "announcement"] {..., author-> } |
@@ -90,6 +108,44 @@ export default createStore({
 
       sanity.fetch(queryString).then(announcements => {
         commit('SET_ANNOUNCEMENTS', [...this.state.announcements, ...announcements])
+      })
+    },
+
+    // OPERATIONS CRUD
+    GetOperations({commit}, limit = null){
+      const queryString = `*[_type == "announcement" && is_operation == true] {..., author-> } | 
+                            order(_createdAt desc) ${limit ? `[0...${limit}]` : ''}`
+      const count = 'count(*[_type == "announcement" && is_operation == true])'
+
+      sanity.fetch(queryString).then(operations => {
+        commit('SET_OPERATIONS', operations)
+      })
+
+      sanity.fetch(count).then(count => {
+        commit('SET_NUMBEROFOPERATIONS', count)
+      })
+    },
+
+    UpdateOperation({commit}, operation){
+      commit('SET_OPERATIONS', this.state.operations.map(o => o._id === operation._id ? operation : o))
+    },
+
+    CreateOperation({commit}, operation){
+      commit('SET_OPERATIONS', [...this.state.announcements, operation])
+      commit('ADD_TO_NUMBEROFOPERATIONS')
+    },
+
+    DeleteOperation({commit}, operationId){
+      commit('SET_OPERATIONS', this.state.announcements.filter(o => o._id !== operationId))
+      commit('ADD_TO_NUMBEROFOPERATIONS')
+    },
+
+    LoadMoreOperations({commit}, limit = 5) {
+      const queryString = `*[_type == "announcement" && is_operation == true] {..., author-> } | order(_createdAt desc) 
+      [${this.state.operations.length}...${this.state.operations.length + limit}]`
+
+      sanity.fetch(queryString).then(operations => {
+        commit('SET_OPERATIONS', [...this.state.operations, ...operations])
       })
     },
 

@@ -9,7 +9,7 @@
         <MenuItem to="/">
           <span class="material-icons mr-2">home</span> Home
         </MenuItem>
-        <MenuItem to="/mission_announcements">
+        <MenuItem to="/operations">
           <span class="material-icons mr-2">calendar_month</span> Mission Announcements
         </MenuItem>
         <MenuItem to="/news">
@@ -18,7 +18,7 @@
         <MenuItem to="/members">
           <span class="material-icons mr-2">group</span> Members
         </MenuItem>
-        <MenuItem to="/mission_announcements">
+        <MenuItem to="">
           <span class="material-icons mr-2">group_add</span> Join BSF
         </MenuItem>
       </div>

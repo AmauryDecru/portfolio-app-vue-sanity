@@ -15,6 +15,14 @@ export default {
             type: 'boolean'
         },
         {
+            title: 'Bio',
+            name: 'bio',
+            type: 'text',
+            validation: Rule => [
+                Rule.max(640).error('Announcement Summary must be less than 640 characters'),
+            ]
+        },
+        {
             title: 'Profile Picture',
             name: 'profile_picture',
             type: 'image'
